@@ -1,7 +1,15 @@
+import React, { useEffect } from "react";
 import logo from './logo.svg';
 import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from './containers/Users/usersSlice'
 
-function App() {
+const App = () => {
+  const dispacth = useDispatch()
+  const { users } = useSelector(state => state.users)
+  useEffect(() => {
+    dispacth(getUsers())
+  }, [dispacth])
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +25,7 @@ function App() {
         >
           Learn React
         </a>
+        {users && users.map((user, i) => <h1 key={i}>{user.name}</h1>)}
       </header>
     </div>
   );
